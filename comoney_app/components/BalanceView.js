@@ -12,6 +12,8 @@ export default class BalanceView extends React.Component {
     this.state = {
       data: {}
     }
+
+    this.pollPurchases = this.pollPurchases.bind(this);
   }
 
   componentWillMount() {
@@ -30,8 +32,14 @@ export default class BalanceView extends React.Component {
       });
   }
 
+  pollPurchases() {
+    console.log('Polling...');
+  }
+
 
   render() {
+    setTimeout(function(){ this.pollPurchases; }, 5000);
+
     var total1 = this.state.data.account1_total;
     var total2 = this.state.data.account2_total;
 
@@ -72,7 +80,7 @@ export default class BalanceView extends React.Component {
         </Background>
       );
     } else {
-      console.log('NO DATA!');
+      console.log('NO DATA YET!');
       return <Loader />;
   }
 }
