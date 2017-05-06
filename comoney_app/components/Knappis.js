@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 class Knappis extends React.Component {
   render() {
     return (
-        <TouchableHighlight onPress={ () => { this.props.onPress() }}>
+        <TouchableHighlight underlayColor={'transparent'} onPress={ () => { this.props.onPress() }}>
             <View style={styles.button}>
                 <Text style={styles.buttonText}>{ this.props.text }</Text>
             </View>
@@ -16,9 +16,10 @@ class Knappis extends React.Component {
 const styles = StyleSheet.create({
   button: {
     backgroundColor: 'white',
-    padding: 10,
-    borderRadius: 30,
-    width: 160
+    paddingTop: 14,
+    paddingBottom: 14,
+    borderRadius: 15,
+    width: 180
   },
   buttonText: {
     textAlign: 'center',
