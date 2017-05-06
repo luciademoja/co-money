@@ -55,8 +55,8 @@ export default class App extends React.Component {
 
   postPurchase() {
     fetch('http://d7d11d0f.ngrok.io/add_to_combined_data', {
+      method: 'POST',
       headers: {
-        'method': 'POST',
         'Accept': 'application/json'
       }
       })
