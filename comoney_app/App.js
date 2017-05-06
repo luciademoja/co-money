@@ -39,8 +39,41 @@ export default class App extends React.Component {
     // this.setState({ new_purchase: data });
   }
 
+  postPurchase() {
+    fetch('http://d7d11d0f.ngrok.io/add_to_combined_data', {
+      headers: {
+        'method': 'POST',
+        'Accept': 'application/json'
+      }
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({new_purchase: null});
+      })
+      .catch((error) => {
+        console.log('ERROR:');
+        console.error(error);
+      });
+  }
+
+  renderAlert() {
+    if(this.state.new_purchase){
+      const shop = this.state.new_purchase.name;
+      const amount = this.state.new_purchase.amount;
+      AlertIOS.alert(
+       amount,
+       shop,
+       [
+         {text: 'Privat', onPress: () => this.setState({new_purchase: null}), style: 'cancel'},
+         {text: 'Gemensamt', onPress: () => postPurchase()},
+       ],
+      );
+    }
+  }
+
   render() {
     setTimeout(function(){ this.pollPurchases }, 2000);
+    this.renderAlert();
 
     return (
       <View style={styles.container}>
