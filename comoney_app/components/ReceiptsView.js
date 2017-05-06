@@ -6,7 +6,7 @@ import Background from './Background';
 export default class ReceiptsView extends React.Component {
   render() {
     return (
-      <Background>
+      <Background variant='gradient'>
         <View style={styles.container}>
           <ReceiptItem
             store='Seven Eleven'

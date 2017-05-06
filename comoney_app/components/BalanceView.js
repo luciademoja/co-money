@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, Image, View } from 'react-native';
+import { StyleSheet, Text, Image, View, AlertIOS } from 'react-native';
 import Background from './Background';
-
+import Knappis from './Knappis';
 
 export default class BalanceView extends React.Component {
 
@@ -44,8 +44,6 @@ export default class BalanceView extends React.Component {
       var account1_diff = this.state.data.account2_total - this.state.data.account1_total
     }
 
-
-
     if (this.state.data.account1) {
       console.log('WE HAVE DATA!');
       return(
@@ -67,12 +65,12 @@ export default class BalanceView extends React.Component {
                 { ' ' + total + ' ' }
                 kr.
               </Text>
+              <Knappis text="SE DETALJER" onPress={ojsan} />
             </View>
           </View>
         </Background>
       );
     } else {
-      // RENDER LOADING THINGY
       console.log('NO DATA!');
       return (
         <Background variant='gradient'>
@@ -81,23 +79,31 @@ export default class BalanceView extends React.Component {
               Fetching data...
             </Text>
           </View>
-        </Background>
-      );
-    }
+      </Background>
+    );
   }
+}
+}
+
+const ojsan = () => {
+  AlertIOS.alert(
+   'Sync Complete',
+   'All your data are belong to us.'
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    paddingTop: 50
   },
   balancePercent: {
     position: 'absolute',
-    top: '23%',
+    top: '15%',
     color: 'rgba(255,255,255,0.15)',
-    fontSize: 162,
+    fontSize: 168,
     fontWeight: 'bold'
   },
   textContainer: {
@@ -108,12 +114,14 @@ const styles = StyleSheet.create({
   heading: {
    fontSize: 42,
    color: 'white',
-   fontWeight: 'bold'
+   fontWeight: 'bold',
+   marginBottom: 6
   },
   paragraph: {
-    fontSize: 18,
+    fontSize: 26,
     color: 'white',
     fontWeight: 'bold',
     maxWidth: 300,
+    marginBottom: 10
   }
 });
