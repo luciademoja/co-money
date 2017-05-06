@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, AlertIOS } from 'react-native';
 import Loader from './components/Loader';
 import BalanceView from './components/BalanceView';
 import ReceiptsView from './components/ReceiptsView';
@@ -89,8 +89,9 @@ export default class App extends React.Component {
 
   renderAlert() {
     if(this.state.new_purchase){
-      const shop = this.state.new_purchase.name;
-      const amount = this.state.new_purchase.amount;
+      const shop = this.state.new_purchase[0].name;
+      const amount = this.state.new_purchase[0].amount;
+      console.log(amount)
       AlertIOS.alert(
        amount,
        shop,
@@ -107,6 +108,7 @@ export default class App extends React.Component {
   }
 
   render() {
+    this.renderAlert();
     return (
       <View style={styles.container}>
         <BalanceView data={this.state.data} />
