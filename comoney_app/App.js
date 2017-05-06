@@ -14,11 +14,14 @@ export default class App extends React.Component {
     this.state = {
       data: {},
       is_polling: false,
-      new_purchase: null
+      new_purchase: null,
+      modal_is_open: false
     }
 
     this.fetchCombinedData = this.fetchCombinedData.bind(this);
     this.startPolling = this.startPolling.bind(this);
+    this.postPurchase = this.postPurchase.bind(this);
+    this.discardPurchase = this.discardPurchase.bind(this);
   }
 
   componentWillMount() {
@@ -47,7 +50,7 @@ export default class App extends React.Component {
   pollPurchases() {
     console.log('Polling...');
 
-    if(!this.state.is_polling) {
+    if(!this.state.is_polling && !this.state.modal_is_open) {
       this.setState({ is_polling: true });
 
       return fetch('http://d7d11d0f.ngrok.io/poll', {
@@ -78,7 +81,7 @@ export default class App extends React.Component {
       })
       .then((response) => response.json())
       .then((data) => {
-        this.setState({new_purchase: null});
+        this.setState({modal_is_open: false, new_purchase: null, is_polling: false});
         this.fetchCombinedData();
       })
       .catch((error) => {
@@ -87,8 +90,26 @@ export default class App extends React.Component {
       });
   }
 
+  discardPurchase() {
+    fetch('http://d7d11d0f.ngrok.io/discard_purchase', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json'
+      }
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({modal_is_open: false, new_purchase: null, is_polling: false});
+      })
+      .catch((error) => {
+        console.log('ERROR:');
+        console.error(error);
+      });
+  }
+
   renderAlert() {
-    if(this.state.new_purchase){
+    if(this.state.new_purchase && this.state.modal_is_open === false){
+      this.setState({ modal_is_open: true });
       const shop = this.state.new_purchase[0].name;
       const amount = this.state.new_purchase[0].amount;
       console.log(amount)
@@ -96,8 +117,8 @@ export default class App extends React.Component {
        amount,
        shop,
        [
-         {text: 'Privat', onPress: () => this.setState({new_purchase: null}), style: 'cancel'},
-         {text: 'Gemensamt', onPress: () => postPurchase()},
+         {text: 'Privat', onPress: () => this.discardPurchase(), style: 'cancel'},
+         {text: 'Gemensamt', onPress: () => this.postPurchase()},
        ],
       );
     }
