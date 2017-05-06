@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, Image, View, AlertIOS } from 'react-native';
 import Background from './Background';
 import Knappis from './Knappis';
+import Loader from './Loader';
 
 export default class BalanceView extends React.Component {
 
@@ -50,7 +51,7 @@ export default class BalanceView extends React.Component {
         <Background variant='gradient'>
           <View style={styles.container}>
             <Text style={styles.balancePercent}>
-              { this.state.data.account1_per }
+              { this.state.data.account1_per + '%' }
             </Text>
             <View style={styles.textContainer}>
               <Text style={styles.heading}>
@@ -72,15 +73,7 @@ export default class BalanceView extends React.Component {
       );
     } else {
       console.log('NO DATA!');
-      return (
-        <Background variant='gradient'>
-          <View style={styles.container}>
-            <Text style={styles.balancePercent}>
-              Fetching data...
-            </Text>
-          </View>
-      </Background>
-    );
+      return <Loader />;
   }
 }
 }
