@@ -35,8 +35,22 @@ export default class App extends React.Component {
 
   pollPurchases() {
     console.log('Polling...');
-    // FETCH POLL ENDPOINT, IF DATA['PURCHASE'] -> SHOW MODAL
-    // this.setState({ new_purchase: data });
+
+    return fetch('http://d7d11d0f.ngrok.io/poll', {
+      headers: { 'Accept': 'application/json' }
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.purchase) {
+          this.setState({new_purchase: data.purchase});
+        } else {
+          console.log('- No new purchase -');
+        }
+      })
+      .catch((error) => {
+        console.log('ERROR:');
+        console.error(error);
+      });
   }
 
   postPurchase() {
@@ -72,8 +86,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    setTimeout(function(){ this.pollPurchases }, 2000);
-    this.renderAlert();
+    setInterval(() => { this.pollPurchases() }, 5000);
 
     return (
       <View style={styles.container}>
