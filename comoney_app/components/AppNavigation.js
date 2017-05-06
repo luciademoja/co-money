@@ -3,25 +3,51 @@ import { StyleSheet, Text, Image, View, TouchableHighlight, AlertIOS } from 'rea
 
 export default class AppNavigation extends React.Component {
   render() {
-    return(
-        <View style={styles.container}>
-          <NavigationButton 
-            image={require('../images/tab_bar/white/receipt/receipt@2x.png')}
-            text='Kvitton'
-            onPress={ojsan}
-          />
-          <NavigationButton 
-            image={require('../images/tab_bar/white/heart/heart@2x.png')}
-            text='Översikt'
-            onPress={ojsan}
-          />
-          <NavigationButton 
-            image={require('../images/tab_bar/white/invoice/invoice@2x.png')}
-            text='Fakturor'
-            onPress={ojsan}
-          />
-        </View>
-    )
+    if(this.props.variant === 'grey') {
+        return(
+            <View style={styles.container}>
+              <NavigationButton 
+                variant='grey'
+                image={require('../images/tab_bar/grey/receipt/receipt@2x.png')}
+                text='Kvitton'
+                onPress={ojsan}
+              />
+              <NavigationButton 
+                variant='grey'
+                image={require('../images/tab_bar/grey/heart/heart@2x.png')}
+                text='Översikt'
+                onPress={ojsan}
+              />
+              <NavigationButton 
+                variant='grey'
+                image={require('../images/tab_bar/grey/invoice/invoice@2x.png')}
+                text='Fakturor'
+                onPress={ojsan}
+              />
+            </View>
+        )
+    } else {
+        return(
+            <View style={styles.container}>
+              <NavigationButton 
+                image={require('../images/tab_bar/white/receipt/receipt@2x.png')}
+                text='Kvitton'
+                onPress={ojsan}
+              />
+              <NavigationButton 
+                image={require('../images/tab_bar/white/heart/heart@2x.png')}
+                text='Översikt'
+                onPress={ojsan}
+              />
+              <NavigationButton 
+                image={require('../images/tab_bar/white/invoice/invoice@2x.png')}
+                text='Fakturor'
+                onPress={ojsan}
+              />
+            </View>
+        )
+    }
+    
   }
 }
 
@@ -41,7 +67,7 @@ class NavigationButton extends React.Component {
                     style={styles.icon}
                     source={this.props.image}
                 />
-                <Text style={styles.text}>{this.props.text}</Text>
+                <Text style={this.props.variant === 'grey' ? styles.texttextDark : styles.text}>{this.props.text}</Text>
             </View>
         </TouchableHighlight>
     )
@@ -69,5 +95,9 @@ const styles = StyleSheet.create({
   text: {
     backgroundColor: 'transparent',
     color: 'white'
+  },
+  textDark: {
+    backgroundColor: 'transparent',
+    color: 'grey'
   }
 });
