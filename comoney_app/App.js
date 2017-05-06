@@ -15,13 +15,19 @@ export default class App extends React.Component {
       data: {},
       is_polling: false,
       new_purchase: null,
-      modal_is_open: false
+      modal_is_open: false,
+      page: 'start'
     }
 
     this.fetchCombinedData = this.fetchCombinedData.bind(this);
     this.startPolling = this.startPolling.bind(this);
     this.postPurchase = this.postPurchase.bind(this);
     this.discardPurchase = this.discardPurchase.bind(this);
+    this.changePage = this.changePage.bind(this);
+  }
+
+  changePage(page) {
+    this.setState({page: page});
   }
 
   componentWillMount() {
@@ -130,12 +136,23 @@ export default class App extends React.Component {
 
   render() {
     this.renderAlert();
-    return (
-      <View style={styles.container}>
-        <BalanceView data={this.state.data} />
-        <AppNavigation />
-      </View>
-    );
+    console.disableYellowBox = true;
+
+    if (this.state.page === 'start'){
+      return (
+        <View style={styles.container}>
+          <BalanceView data={this.state.data} />
+          <AppNavigation onChangePage={ this.changePage } />
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.container}>
+          <ReceiptsView data={this.state.data} />
+          <AppNavigation variant="grey" onChangePage={ this.changePage } />
+        </View>
+      );
+    }
   }
 }
 

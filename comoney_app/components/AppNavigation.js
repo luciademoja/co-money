@@ -2,6 +2,10 @@ import React from 'react';
 import { StyleSheet, Text, Image, View, TouchableHighlight, AlertIOS } from 'react-native';
 
 export default class AppNavigation extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     if(this.props.variant === 'grey') {
         return(
@@ -10,58 +14,56 @@ export default class AppNavigation extends React.Component {
                 variant='grey'
                 image={require('../images/tab_bar/grey/receipt/receipt@2x.png')}
                 text='Kvitton'
-                onPress={ojsan}
+                page="kvitton"
+                changePage={this.props.onChangePage}
               />
               <NavigationButton 
                 variant='grey'
                 image={require('../images/tab_bar/grey/heart/heart@2x.png')}
                 text='Översikt'
-                onPress={ojsan}
+                page="start"
+                changePage={this.props.onChangePage}
               />
               <NavigationButton 
                 variant='grey'
                 image={require('../images/tab_bar/grey/invoice/invoice@2x.png')}
                 text='Fakturor'
-                onPress={ojsan}
+                page="start"
+                changePage={this.props.onChangePage}
               />
             </View>
         )
     } else {
-        return(
-            <View style={styles.container}>
-              <NavigationButton 
-                image={require('../images/tab_bar/white/receipt/receipt@2x.png')}
-                text='Kvitton'
-                onPress={ojsan}
-              />
-              <NavigationButton 
-                image={require('../images/tab_bar/white/heart/heart@2x.png')}
-                text='Översikt'
-                onPress={ojsan}
-              />
-              <NavigationButton 
-                image={require('../images/tab_bar/white/invoice/invoice@2x.png')}
-                text='Fakturor'
-                onPress={ojsan}
-              />
-            </View>
-        )
+      return(
+          <View style={styles.container}>
+            <NavigationButton 
+              image={require('../images/tab_bar/white/receipt/receipt@2x.png')}
+              text='Kvitton'
+              page="kvitton"
+              changePage={this.props.onChangePage}
+            />
+            <NavigationButton 
+              image={require('../images/tab_bar/white/heart/heart@2x.png')}
+              text='Översikt'
+              page="start"
+              changePage={this.props.onChangePage}
+            />
+            <NavigationButton 
+              image={require('../images/tab_bar/white/invoice/invoice@2x.png')}
+              text='Fakturor'
+              page="start"
+              changePage={this.props.onChangePage}
+            />
+          </View>
+      )
     }
-    
   }
-}
-
-const ojsan = () => {
-  AlertIOS.alert(
-   'Sync Complete',
-   'All your data are belong to us.'
-  );
 }
 
 class NavigationButton extends React.Component {
   render() {
     return(
-        <TouchableHighlight underlayColor={'transparent'} onPress={ () => { this.props.onPress() }}>
+        <TouchableHighlight underlayColor={'transparent'} onPress={ () => { this.props.changePage(this.props.page) }}>
             <View style={styles.item}>
                 <Image
                     style={styles.icon}

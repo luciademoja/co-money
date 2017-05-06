@@ -5,27 +5,23 @@ import Background from './Background';
 
 export default class ReceiptsView extends React.Component {
   render() {
+    var combined_data = this.props.data.combined || [];
+
     return (
       <Background variant='gradient'>
         <View style={styles.container}>
-          <ReceiptItem
-            store='Seven Eleven'
-            date='23 Mars'
-            amount='170kr'
-            user='Anna'
-          />
-          <ReceiptItem
-            store='Seven Eleven'
-            date='23 Mars'
-            amount='170kr'
-            user='Anna'
-          />
-          <ReceiptItem
-            store='Seven Eleven'
-            date='23 Mars'
-            amount='170kr'
-            user='Anna'
-          />
+          { 
+            combined_data.map(item => {
+              return (
+                <ReceiptItem
+                  store={item.name}
+                  date={item.date}
+                  amount={item.amount}
+                  user={(item.id === 1 ? 'Anna' : 'Johan')}
+                />
+              )
+            }
+            )}
         </View>
       </Background>
     );

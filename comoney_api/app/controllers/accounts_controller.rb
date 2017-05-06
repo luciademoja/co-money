@@ -12,6 +12,7 @@ class AccountsController < ApplicationController
     account2_per = (account2_total / total).to_f
 
     render json: {
+      combined: purchases1 + purchases2,
       account1: purchases1,
       account2: purchases2,
       account1_per: (account1_per * 100).to_i,
