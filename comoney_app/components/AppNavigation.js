@@ -48,7 +48,6 @@ class NavigationButton extends React.Component {
   }
 }
 
-
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
