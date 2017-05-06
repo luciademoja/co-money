@@ -14,4 +14,16 @@ class PurchasesController < ApplicationController
     render json: {}, status: 200
   end
 
+  def remove_from_combined_data
+    purchase = Purchase.last
+    purchase.update_attribute :combined, false
+
+    render json: {}, status: 200
+  end
+
+  def poll_new_purchases
+    purchase = Account.first.purchases.where(combined: nil)
+    render json: { purchase: purchase }, status: 200
+  end
+
 end
