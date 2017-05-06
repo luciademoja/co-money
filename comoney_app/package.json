@@ -19,6 +19,10 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "isomorphic-fetch": "^2.2.1",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.1.0",
+    "react-redux": "^5.0.2",
     "expo": "^16.0.0",
     "react": "16.0.0-alpha.6",
     "react-native": "^0.43.4",
