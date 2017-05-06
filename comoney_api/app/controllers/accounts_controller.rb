@@ -14,8 +14,8 @@ class AccountsController < ApplicationController
     render json: {
       account1: purchases1,
       account2: purchases2,
-      account1_per: (account1_per * 100).round(1),
-      account2_per: (account2_per * 100).round(1),
+      account1_per: (account1_per * 100).to_i,
+      account2_per: (account2_per * 100).to_i,
       account1_total: account1_total,
       account2_total: account2_total
     }
