@@ -13,13 +13,24 @@ export default class App extends React.Component {
 
     this.state = {
       data: {},
+      is_polling: false,
       new_purchase: null
     }
+
+    this.fetchCombinedData = this.fetchCombinedData.bind(this);
+    this.startPolling = this.startPolling.bind(this);
   }
 
   componentWillMount() {
     console.log('COMPONENT WILL MOUNT...');
+    this.fetchCombinedData();
+  }
 
+  componentDidMount() {
+    this.startPolling();
+  }
+
+  fetchCombinedData() {
     return fetch('http://d7d11d0f.ngrok.io/combined_data', {
       headers: { 'Accept': 'application/json' }
       })
@@ -36,21 +47,26 @@ export default class App extends React.Component {
   pollPurchases() {
     console.log('Polling...');
 
-    return fetch('http://d7d11d0f.ngrok.io/poll', {
-      headers: { 'Accept': 'application/json' }
-      })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.purchase) {
-          this.setState({new_purchase: data.purchase});
-        } else {
-          console.log('- No new purchase -');
-        }
-      })
-      .catch((error) => {
-        console.log('ERROR:');
-        console.error(error);
-      });
+    if(!this.state.is_polling) {
+      this.setState({ is_polling: true });
+
+      return fetch('http://d7d11d0f.ngrok.io/poll', {
+        headers: { 'Accept': 'application/json' }
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.purchase.length > 0) {
+            this.setState({new_purchase: data.purchase});
+          } else {
+            console.log('- No new purchase -');
+          }
+        })
+        .catch((error) => {
+          console.log('ERROR:');
+          console.error(error);
+        });
+    }
+    this.setState({ is_polling: false });
   }
 
   postPurchase() {
@@ -63,6 +79,7 @@ export default class App extends React.Component {
       .then((response) => response.json())
       .then((data) => {
         this.setState({new_purchase: null});
+        this.fetchCombinedData();
       })
       .catch((error) => {
         console.log('ERROR:');
@@ -85,9 +102,11 @@ export default class App extends React.Component {
     }
   }
 
-  render() {
-    setInterval(() => { this.pollPurchases() }, 5000);
+  startPolling() {
+    setInterval(() => { this.pollPurchases() }, 1000);
+  }
 
+  render() {
     return (
       <View style={styles.container}>
         <BalanceView data={this.state.data} />
