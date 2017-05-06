@@ -9,86 +9,50 @@ export default class BalanceView extends React.Component {
     super(props);
 
     this.state = {
-      data: {
-        account1: [
-          {
-            id: 1,
-            account_id: 1,
-            name: "7 Eleven, Kaffe",
-            amount: "789.0",
-            combined: true,
-            created_at: "2017-05-03T18:37:00.050Z",
-            updated_at: "2017-05-03T18:37:00.050Z"
-          },
-          {
-            id: 3,
-            account_id: 1,
-            name: "ICA Maxi",
-            amount: "345.0",
-            combined: true,
-            created_at: "2017-05-03T18:38:19.742Z",
-            updated_at: "2017-05-03T18:38:46.100Z"
-          },
-          {
-            id: 4,
-            account_id: 1,
-            name: "ICA Maxi",
-            amount: "345.0",
-            combined: true,
-            created_at: "2017-05-03T18:39:48.985Z",
-            updated_at: "2017-05-03T18:40:02.797Z"
-          }
-        ],
-        account2: [
-          {
-            id: 2,
-            account_id: 2,
-            name: "Pressbyrån, Semla",
-            amount: "14.0",
-            combined: true,
-            created_at: "2017-05-03T18:37:00.053Z",
-            updated_at: "2017-05-03T18:37:00.053Z"
-          }
-        ],
-        account1_per: 99.1,
-        account2_per: 0.9
-      }
+      data: {}
     }
   }
 
   componentWillMount() {
-    console.log('COMPONENT WILL MOUNT');
+    console.log('COMPONENT WILL MOUNT...');
 
-    /*
-    return fetch('localhost:3000/combined_data')
+    return fetch('http://d7d11d0f.ngrok.io/combined_data', {
+      headers: { 'Accept': 'application/json' }
+      })
       .then((response) => response.json())
-      .then((responseJson) => {
-        console.log('DATA:');
-        console.log(data);
+      .then((data) => {
+        this.setState({data: data});
       })
       .catch((error) => {
         console.log('ERROR:');
         console.error(error);
       });
-      */
   }
 
 
   render() {
-    if (this.state.data.account1.length > 0) {
+    var total1 = this.state.data.account1_total;
+    var total2 = this.state.data.account2_total;
+
+    var more_or_less = total1 > total2 ? 'mer' : 'mindre';
+
+
+    if (this.state.data.account1) {
       console.log('WE HAVE DATA!');
       return(
         <Background variant='gradient'>
           <View style={styles.container}>
             <Text style={styles.balancePercent}>
-              43%
+              { this.state.data.account1_per }
             </Text>
             <View style={styles.textContainer}>
               <Text style={styles.heading}>
                 Hej Anna!
               </Text>
               <Text style={styles.paragraph}>
-                Du har betalat 1057 kr mindre än Johan. Era gemensamma utgifter denna månaden är 11 500 kr.
+                Du har betalat
+                { this.state.data.account2_total - this.state.data.account1_total }
+                kr { more_or_less } än Johan. Era gemensamma utgifter denna månaden är 11 500 kr.
               </Text>
             </View>
           </View>
