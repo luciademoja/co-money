@@ -12,8 +12,8 @@ export default class App extends React.Component {
         {
           /*
             <Loader />
-            <BalanceView />
           */
+            <BalanceView />
         }
          <ReceiptsView />
       </View>
