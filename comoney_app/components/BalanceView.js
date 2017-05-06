@@ -63,7 +63,9 @@ export default class BalanceView extends React.Component {
                 { ' ' + account1_diff + ' ' }
                 kr
                 { ' ' + more_or_less + ' ' }
-                än Johan. Era gemensamma utgifter denna månaden är 11 500 kr.
+                än Johan. Era gemensamma utgifter denna månaden är
+                { ' ' + total + ' ' }
+                kr.
               </Text>
             </View>
           </View>

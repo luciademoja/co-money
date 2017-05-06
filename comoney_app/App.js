@@ -10,10 +10,7 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
         {
-          /*
-            <Loader />
-          */
-            <BalanceView />
+          <BalanceView />
         }
          <ReceiptsView />
       </View>
