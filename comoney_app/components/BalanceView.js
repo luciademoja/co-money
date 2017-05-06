@@ -34,7 +34,16 @@ export default class BalanceView extends React.Component {
     var total1 = this.state.data.account1_total;
     var total2 = this.state.data.account2_total;
 
-    var more_or_less = total1 > total2 ? 'mer' : 'mindre';
+    var total = total1 + total2;
+
+    if(total1 > total2) {
+      var more_or_less =  'mer';
+      var account1_diff = this.state.data.account1_total - this.state.data.account2_total
+    } else {
+      var more_or_less =  'mindre';
+      var account1_diff = this.state.data.account2_total - this.state.data.account1_total
+    }
+
 
 
     if (this.state.data.account1) {
@@ -51,8 +60,10 @@ export default class BalanceView extends React.Component {
               </Text>
               <Text style={styles.paragraph}>
                 Du har betalat
-                { this.state.data.account2_total - this.state.data.account1_total }
-                kr { more_or_less } än Johan. Era gemensamma utgifter denna månaden är 11 500 kr.
+                { ' ' + account1_diff + ' ' }
+                kr
+                { ' ' + more_or_less + ' ' }
+                än Johan. Era gemensamma utgifter denna månaden är 11 500 kr.
               </Text>
             </View>
           </View>
