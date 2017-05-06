@@ -7,8 +7,6 @@ import Loader from './Loader';
 export default class BalanceView extends React.Component {
 
   render() {
-    setTimeout(function(){ this.pollPurchases; }, 2000);
-
     var total1 = this.props.data.account1_total;
     var total2 = this.props.data.account2_total;
 

@@ -12,10 +12,9 @@ export default class App extends React.Component {
     super(props);
 
     this.state = {
-      data: {}
+      data: {},
+      new_purchase: null
     }
-
-    this.pollPurchases = this.pollPurchases.bind(this);
   }
 
   componentWillMount() {
@@ -37,9 +36,12 @@ export default class App extends React.Component {
   pollPurchases() {
     console.log('Polling...');
     // FETCH POLL ENDPOINT, IF DATA['PURCHASE'] -> SHOW MODAL
+    // this.setState({ new_purchase: data });
   }
 
   render() {
+    setTimeout(function(){ this.pollPurchases }, 2000);
+
     return (
       <View style={styles.container}>
         <BalanceView data={this.state.data} />
