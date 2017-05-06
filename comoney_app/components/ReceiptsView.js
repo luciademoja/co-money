@@ -35,14 +35,14 @@ export default class ReceiptsView extends React.Component {
 const ReceiptItem = (props) => {
   return(
     <View style={styles.receiptItem}>
-      <Text style={styles.receiptItemColumn}>
-        <Text>{props.store}</Text>
-        <Text>{props.date}</Text>
-      </Text>
-      <Text style={styles.receiptItemColumn}>
-        <Text>{props.amount}</Text>
-        <Text>{props.user}</Text>
-      </Text>
+      <View style={styles.receiptItemColumn}>
+        <Text style={styles.large}>{props.store}</Text>
+        <Text style={styles.small}>{props.date}</Text>
+      </View>
+      <View style={styles.receiptItemColumn}>
+        <Text style={styles.large}>{props.amount}</Text>
+        <Text style={styles.small}>{props.user}</Text>
+      </View>
     </View>
   )
 }
@@ -59,11 +59,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    padding: 35,
+    padding: 24,
     borderColor: 'rgb(225,225,228)',
     borderBottomWidth: 1,
   },
-  receiptItemColumn: {
-    backgroundColor: 'red'
+  large: {
+    fontSize: 20,
+    marginBottom: 5
+  },
+  small: {
+    fontSize: 12
   }
 });
