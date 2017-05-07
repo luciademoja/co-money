@@ -16,7 +16,7 @@ export default class ReceiptsView extends React.Component {
                 <ReceiptItem
                   store={item.name}
                   date={item.date}
-                  amount={item.amount}
+                  amount={parseInt(item.amount) + ' kr'}
                   user={(item.id === 1 ? 'Anna' : 'Johan')}
                 />
               )

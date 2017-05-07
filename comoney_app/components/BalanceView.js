@@ -23,28 +23,26 @@ export default class BalanceView extends React.Component {
     if (this.props.data.account1) {
       console.log('WE HAVE DATA!');
       return(
-        <Background variant='gradient'>
-          <View style={styles.container}>
-            <Text style={styles.balancePercent}>
-              { this.props.data.account1_per + '%' }
+        <View style={styles.container}>
+          <Text style={styles.balancePercent}>
+            { this.props.data.account1_per + '%' }
+          </Text>
+          <View style={styles.textContainer}>
+            <Text style={styles.heading}>
+              Hej Anna!
             </Text>
-            <View style={styles.textContainer}>
-              <Text style={styles.heading}>
-                Hej Anna!
-              </Text>
-              <Text style={styles.paragraph}>
-                Du har betalat
-                { ' ' + account1_diff + ' ' }
-                kr
-                { ' ' + more_or_less + ' ' }
-                än Johan. Era gemensamma utgifter denna månaden är
-                { ' ' + total + ' ' }
-                kr.
-              </Text>
-              <Knappis text="SE DETALJER" onPress={ojsan} />
-            </View>
+            <Text style={styles.paragraph}>
+              Du har betalat
+              { ' ' + account1_diff + ' ' }
+              kr
+              { ' ' + more_or_less + ' ' }
+              än Johan. Era gemensamma utgifter denna månaden är
+              { ' ' + total + ' ' }
+              kr.
+            </Text>
+            <Knappis text="SE DETALJER" onPress={ojsan} />
           </View>
-        </Background>
+        </View>
       );
     } else {
       console.log('NO DATA YET!');

@@ -4,6 +4,7 @@ import Loader from './components/Loader';
 import BalanceView from './components/BalanceView';
 import ReceiptsView from './components/ReceiptsView';
 import AppNavigation from './components/AppNavigation';
+import Background from './components/Background';
 
 
 export default class App extends React.Component {
@@ -140,17 +141,21 @@ export default class App extends React.Component {
 
     if (this.state.page === 'start'){
       return (
+      <Background variant='gradient'>
         <View style={styles.container}>
           <BalanceView data={this.state.data} />
           <AppNavigation onChangePage={ this.changePage } />
         </View>
+      </Background>
       );
     } else {
       return (
+      <Background variant='gradient'>
         <View style={styles.container}>
           <ReceiptsView data={this.state.data} />
           <AppNavigation variant="grey" onChangePage={ this.changePage } />
         </View>
+      </Background>
       );
     }
   }
@@ -159,7 +164,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ededed',
+    backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'space-around',
   }
